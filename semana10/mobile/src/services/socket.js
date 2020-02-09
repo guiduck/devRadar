@@ -5,6 +5,11 @@ const socket = socketio('http://192.168.0.3:3333', {
     autoConnect: false,
 });
 
+//ouve evento 'new-dev' que dispara quando dev é cadastrado no backend e dispara subscribeFunciton
+function subscribeToNewDevs(subscribeFunction) {
+    socket.on('new-dev', subscribeFunction); 
+}
+
 function connect(latitude, longitude, techs) {
     socket.io.opts.query = {
         latitude,
@@ -25,4 +30,5 @@ function disconnect() {
 export {
     connect,
     disconnect,
+    subscribeToNewDevs,
 };
