@@ -1,5 +1,5 @@
 # devRadar
-devRadar for github users using git API
+devRadar for github users using git API. If you run it, should filter devs by techs they work in a 10km radius from map center point(can't remember if 10 or 50, probably in websocket file...)
 Used node.js, reactJS and react native
 
 to run it just 'yarn install', 'yarn start' for web and mobile, 'yarn dev' for backend
