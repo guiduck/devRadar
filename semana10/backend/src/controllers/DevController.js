@@ -1,6 +1,7 @@
 const axios = require('axios');
 const Dev = require('../models/Dev');
 const parseStringAsArray = require('../utils/parseStringAsArray');
+const { findConnections, sendMessage } = require('../websocket');
 
 //controller normalmente tem funções index, show, store, update, destroy
 
@@ -39,7 +40,16 @@ module.exports = {
                 techs: techsArray,
                 location,
             })
+
+            //filtrar conexoes pela distancia e techs que vem do socket
+            const sendSocketMessageTo = findConnections(
+                { latitude, longitude },
+                techsArray,
+            )
+            
+            sendMessage(sendSocketMessageTo, 'new-dev', dev);
         }
+
         return response.json({dev});
     },
 
