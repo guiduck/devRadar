@@ -5,6 +5,7 @@ import { requestPermissionsAsync, getCurrentPositionAsync } from 'expo-location'
 import { MaterialIcons } from '@expo/vector-icons';
 
 import api from '../services/api';
+import { connect, disconnect } from '../services/socket';
 
 //dever de casa:
 //jogar o form de busca pra cima qunado clicar no teclado cosnumindo api do teclado do expo
@@ -38,7 +39,11 @@ function Main({ navigation }) {
         loadInitialPosition();
     }, [])
 
-    async function loadDevs(){
+    function setupWebsocket() {
+        connect();
+    }
+
+    async function loadDevs() {
         const { latitude, longitude } = currentRegion;
 
         const response = await api.get('/search', {
@@ -50,6 +55,7 @@ function Main({ navigation }) {
         });
 
         setDevs(response.data.devs);
+        setupWebsocket();
     }
 
     function handleRegionChanged(region) {
